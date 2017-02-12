@@ -2,7 +2,7 @@
 
 Disclaimer: This is not an official Google product.
 
-This is an example to demonstrate how to use Cloud Dataflow to run a batch
+This is an example to demonstrate how to use Cloud Dataflow to run batch
  processing for machine learning predictions. The machine learning model is
  trained with TensorFlow, and the trained model is exported into a Cloud
  Storage bucket in advance. The model is dynamically restored on the worker
