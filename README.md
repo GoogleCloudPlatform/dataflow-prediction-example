@@ -112,9 +112,9 @@ In this section you will start your [Google Cloud Shell][5] and clone the
 
   ```
   $ gsutil ls $BUCKET/output/predict*
-  gs://cloudml-sample-dataflow/output/predict-00000-of-00003
-  gs://cloudml-sample-dataflow/output/predict-00001-of-00003
-  gs://cloudml-sample-dataflow/output/predict-00002-of-00003
+  gs://[PROJECT_ID]-dataflow/output/predict-00000-of-00003
+  gs://[PROJECT_ID]-dataflow/output/predict-00001-of-00003
+  gs://[PROJECT_ID]-dataflow/output/predict-00002-of-00003
   ```
 
 ## Make predictions using BigQuery as a data source
