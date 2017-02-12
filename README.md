@@ -7,9 +7,9 @@ This is an example to demonstrate how to use Cloud Dataflow to run a batch
  trained with TensorFlow, and the trained model is exported into a Cloud
  Storage bucket in advance. The model is dynamically restored on the worker
  nodes of prediction jobs. This enables you to make predictions against a
- large dataset stored in a Cloud Storage bucket or BigQuery tables in a
- scalable manner since Cloud Dataflow automatically distribute the prediction
- tasks to multiple worker nodes.
+ large dataset stored in a Cloud Storage bucket or BigQuery tables, in a
+ scalable manner, because Cloud Dataflow automatically distribute the
+ prediction tasks to multiple worker nodes.
 
 ## Products
 - [Cloud Dataflow][1]
@@ -94,8 +94,11 @@ In this section you will start your [Google Cloud Shell][5] and clone the
       --output $BUCKET/output/predict
   ```
 
-  The `--source cs` option which indicates that the prediction data source
-  and prediction results are stored in Cloud Storage.
+  The flag `--source cs` indicates that the prediction data source
+  and prediction results are stored in the Cloud Storage bucket.
+  The number of worker nodes is automatically adjusted by the autoscaling
+  feature. You can specify the number of nodes by using the `--num_workers`
+  parameter, if you want to use a fixed number of nodes.
 
   By clicking on the Cloud Dataflow menu on the Cloud Console, you find
   the running job and the link navigates to the data flow graph as below:
@@ -104,7 +107,7 @@ In this section you will start your [Google Cloud Shell][5] and clone the
 
 2. Confirm the prediction results.
 
-  When the job finished successfully, the prediction results are stored
+  When the job finishes successfully, the prediction results are stored
   in the Cloud Storage bucket.
 
   ```
@@ -140,7 +143,7 @@ In this section you will start your [Google Cloud Shell][5] and clone the
       --output $PROJECT:mnist.predict
   ```
 
-  The `--source bq` option which indicates that the prediction data source
+  The flag `--source bq` indicates that the prediction data source
   and prediction results are stored in BigQuery tables.
 
   By clicking on the Cloud Dataflow menu on the Cloud Console, you find
@@ -150,12 +153,18 @@ In this section you will start your [Google Cloud Shell][5] and clone the
 
 3. Confirm the prediction results.
 
-  When the job finished successfully, the prediction results are stored in
+  When the job finishes successfully, the prediction results are stored in
   the BigQuery table. By clicking on the BigQuery menu on the Cloud Console,
   you find the `mnist.predict` table which holds the prediction results.
 
-## Cleaning up
+  For example, you can see the prediction results for the first 10 images,
+  in a tabular format, by executing the following query.
 
+  ```
+  SELECT * FROM mnist.predict WHERE key < 10 ORDER BY key;
+  ```
+
+## Cleaning up
 Clean up is really easy, but also super important: if you don't follow these
  instructions, you will continue to be billed for the project you created.
 
