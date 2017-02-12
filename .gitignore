@@ -1,0 +1,4 @@
+*.py[cod]
+*$py.class
+*.egg-info
+data/images.txt
