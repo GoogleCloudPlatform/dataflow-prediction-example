@@ -37,11 +37,10 @@ In this section you will start your [Google Cloud Shell][5] and clone the
 
  <img src="docs/img/cloud-shell.png" width="300">
 
-3. Install Cloud Machine Learning SDK:
+3. Install TensorFlow:
 
   ```
-  $ curl https://raw.githubusercontent.com/GoogleCloudPlatform/cloudml-samples/master/tools/setup_cloud_shell.sh | bash
-  $ export PATH=${HOME}/.local/bin:${PATH}
+  $ pip install --upgrade tensorflow --user
   ```
 
   Note: This is necessary to install the TensorFlow module on the Cloud Shell.
