@@ -52,10 +52,10 @@ class Model():
 
 class PredictDoFn(beam.DoFn):
 
-  def process(self, context, checkpoint):
+  def process(self, element, checkpoint):
     model = Model(checkpoint)
-    input_key = int(context.element['key'])
-    image = context.element['image'].split(',')
+    input_key = int(element['key'])
+    image = element['image'].split(',')
     output_key, pred = model.sess.run(
         [model.output_key, model.p],
         feed_dict={model.input_key: [input_key], model.x: [image]})
