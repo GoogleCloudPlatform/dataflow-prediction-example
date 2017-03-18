@@ -40,16 +40,11 @@ In this section you will start your [Google Cloud Shell][5] and clone the
 3. Install Cloud Dataflow SDK:
 
   ```
-  $ pip install google-cloud-dataflow --user
+  $ pip install --upgrade google-cloud-dataflow --user
+  $ pip install --upgrade protobuf --user
   ```
-
-4. Install TensorFlow:
-
-  ```
-  $ pip install tensorflow --user
-  ```
-
-5. Clone the lab repository in your cloud shell, then `cd` into that dir:
+  
+4. Clone the lab repository in your cloud shell, then `cd` into that dir:
 
   ```
   $ git clone https://github.com/GoogleCloudPlatform/dataflow-prediction-example
