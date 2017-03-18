@@ -37,18 +37,16 @@ In this section you will start your [Google Cloud Shell][5] and clone the
 
  <img src="docs/img/cloud-shell.png" width="300">
 
-3. Install TensorFlow:
+3. Install Cloud Dataflow SDK:
 
   ```
-  $ pip install --upgrade tensorflow --user
+  $ pip install google-cloud-dataflow --user
   ```
 
-  Note: This is necessary to install the TensorFlow module on the Cloud Shell.
-
-4. Install Cloud Dataflow SDK:
+4. Install TensorFlow:
 
   ```
-  $ pip install --upgrade google-cloud-dataflow --user
+  $ pip install tensorflow --user
   ```
 
 5. Clone the lab repository in your cloud shell, then `cd` into that dir:
