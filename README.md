@@ -48,7 +48,7 @@ In this section you will start your [Google Cloud Shell][5] and clone the
 4. Install Cloud Dataflow SDK:
 
   ```
-  $ pip install google-cloud-dataflow --user
+  $ pip install --upgrade google-cloud-dataflow --user
   ```
 
 5. Clone the lab repository in your cloud shell, then `cd` into that dir:
