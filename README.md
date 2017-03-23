@@ -41,7 +41,6 @@ In this section you will start your [Google Cloud Shell][5] and clone the
 
   ```
   $ pip install --upgrade google-cloud-dataflow --user
-  $ pip install --upgrade protobuf --user
   ```
   
 4. Clone the lab repository in your cloud shell, then `cd` into that dir:
