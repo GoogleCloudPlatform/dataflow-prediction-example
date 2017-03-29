@@ -159,17 +159,17 @@ In this section you will start your [Google Cloud Shell][5] and clone the
 Clean up is really easy, but also super important: if you don't follow these
  instructions, you will continue to be billed for the project you created.
 
-To clean up, navigate to the [Google Developers Console Project List][5],
+To clean up, navigate to the [Google Developers Console Project List][7],
  choose the project you created for this lab, and delete it. That's it.
 
-[5]: https://console.developers.google.com/project
+[7]: https://console.developers.google.com/project
 
 ## Related solutions
-- [TensorFlow Serving][6] is an open-source software library for serving machine
+- [TensorFlow Serving][8] is an open-source software library for serving machine
  learning models.
-- [Google Cloud Machine Learning][7] is a managed service that enables you to
+- [Google Cloud Machine Learning][9] is a managed service that enables you to
  easily build machine learning models, that work on any type of data, of any
  size.
 
-[6]: https://github.com/tensorflow/serving
-[7]: https://cloud.google.com/ml/
+[8]: https://github.com/tensorflow/serving
+[9]: https://cloud.google.com/ml/
