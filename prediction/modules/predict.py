@@ -22,23 +22,17 @@ import apache_beam as beam
 import tensorflow as tf
 
 
-def singleton(cls):
-  instances = {}
-  def getinstance(*args, **kwargs):
-    if cls not in instances:
-      instances[cls] = cls(*args, **kwargs)
-    return instances[cls]
-  return getinstance
-
-
-@singleton
-class Model():
+class PredictDoFn(beam.DoFn):
 
   def __init__(self, checkpoint):
+    self.checkpoint = checkpoint
+
+  def start_bundle(self):
     with tf.Graph().as_default() as graph:
       sess = tf.InteractiveSession()
-      saver = tf.train.import_meta_graph(os.path.join(checkpoint, 'export.meta'))
-      saver.restore(sess, os.path.join(checkpoint, 'export'))
+      saver = tf.train.import_meta_graph(
+          os.path.join(self.checkpoint, 'export.meta'))
+      saver.restore(sess, os.path.join(self.checkpoint, 'export'))
 
       inputs = json.loads(tf.get_collection('inputs')[0])
       outputs = json.loads(tf.get_collection('outputs')[0])
@@ -49,16 +43,12 @@ class Model():
       self.output_key = graph.get_tensor_by_name(outputs['key'])
       self.sess = sess
 
-
-class PredictDoFn(beam.DoFn):
-
-  def process(self, element, checkpoint):
-    model = Model(checkpoint)
+  def process(self, element):
     input_key = int(element['key'])
     image = element['image'].split(',')
-    output_key, pred = model.sess.run(
-        [model.output_key, model.p],
-        feed_dict={model.input_key: [input_key], model.x: [image]})
+    output_key, pred = self.sess.run(
+        [self.output_key, self.p],
+        feed_dict={self.input_key: [input_key], self.x: [image]})
     result = {}
     result['key'] = output_key[0]
     for i, val in enumerate(pred[0].tolist()):
@@ -87,7 +77,7 @@ def run(argv=None):
     p = beam.Pipeline(argv=pipeline_args)
     images = (p | 'ReadFromText' >> beam.io.ReadFromText(known_args.input)
               | 'ConvertToDict'>> beam.Map(_to_dictionary))
-    predictions = images | 'Prediction' >> beam.ParDo(PredictDoFn(), known_args.model)
+    predictions = images | 'Prediction' >> beam.ParDo(PredictDoFn(known_args.model))
     predictions | 'WriteToText' >> beam.io.WriteToText(known_args.output)
 
   else:
@@ -96,7 +86,7 @@ def run(argv=None):
       schema += (', pred%d:FLOAT' % i)
     p = beam.Pipeline(argv=pipeline_args)
     images = p | 'ReadFromBQ' >> beam.Read(beam.io.BigQuerySource(known_args.input))
-    predictions = images | 'Prediction' >> beam.ParDo(PredictDoFn(), known_args.model)
+    predictions = images | 'Prediction' >> beam.ParDo(PredictDoFn(known_args.model))
     predictions | 'WriteToBQ' >> beam.Write(beam.io.BigQuerySink(
         known_args.output,
         schema=schema,
@@ -105,4 +95,3 @@ def run(argv=None):
 
   logging.getLogger().setLevel(logging.INFO)
   p.run()
-
