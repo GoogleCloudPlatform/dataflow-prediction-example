@@ -50,7 +50,7 @@ class CustomCommands(setuptools.Command):
 
 CUSTOM_COMMANDS = [[
     'pip', 'install',
-    'https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-1.1.0-cp27-none-linux_x86_64.whl']]
+    'https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.12.1-cp27-none-linux_x86_64.whl']]
 
 REQUIRED_PACKAGES = []
 
