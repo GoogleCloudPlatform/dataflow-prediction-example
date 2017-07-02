@@ -95,9 +95,9 @@ def run(argv=None):
     for i in range(10):
       schema += (', pred%d:FLOAT' % i)
     p = beam.Pipeline(argv=pipeline_args)
-    images = p | 'ReadFromBQ' >> beam.Read(beam.io.BigQuerySource(known_args.input))
+    images = p | 'ReadFromBQ' >> beam.io.Read(beam.io.BigQuerySource(known_args.input))
     predictions = images | 'Prediction' >> beam.ParDo(PredictDoFn(), known_args.model)
-    predictions | 'WriteToBQ' >> beam.Write(beam.io.BigQuerySink(
+    predictions | 'WriteToBQ' >> beam.io.Write(beam.io.BigQuerySink(
         known_args.output,
         schema=schema,
         create_disposition=beam.io.BigQueryDisposition.CREATE_IF_NEEDED,
