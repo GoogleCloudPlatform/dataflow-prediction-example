@@ -60,8 +60,8 @@ In this section you will start your [Google Cloud Shell][5] and clone the
 
   ```
   $ PROJECT=$(gcloud config list project --format "value(core.project)")
-  $ BUCKET=gs://$PROJECT-dataflow
-  $ gsutil mkdir $BUCKET
+  $ BUCKET=gs://$PROJECT-dataflow-$(openssl rand -hex 16)
+  $ gsutil mb $BUCKET
   $ gsutil cp data/export* $BUCKET/model/
   $ gzip -kdf data/images.txt.gz
   $ gsutil cp data/images.txt $BUCKET/input/
@@ -103,9 +103,9 @@ In this section you will start your [Google Cloud Shell][5] and clone the
 
   ```
   $ gsutil ls $BUCKET/output/predict*
-  gs://[PROJECT_ID]-dataflow/output/predict-00000-of-00003
-  gs://[PROJECT_ID]-dataflow/output/predict-00001-of-00003
-  gs://[PROJECT_ID]-dataflow/output/predict-00002-of-00003
+  gs://[PROJECT_ID]-dataflow-[UID]/output/predict-00000-of-00003
+  gs://[PROJECT_ID]-dataflow-[UID]/output/predict-00001-of-00003
+  gs://[PROJECT_ID]-dataflow-[UID]/output/predict-00002-of-00003
   ```
 
 ## Make predictions using BigQuery as a data source
